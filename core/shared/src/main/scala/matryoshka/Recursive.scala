@@ -91,7 +91,7 @@ trait Recursive[T] extends Based[T] { self =>
     f: GAlgebraM[(T, ?), M, Base, A])(
     implicit BT: Traverse[Base]):
       M[A] =
-    para[M[A]](t)(_.map(_.sequence).sequence >>= f)
+    para[M[A]](t)(_.traverse(_.sequence) >>= f)
 
   def zygo[A, B]
     (t: T)
